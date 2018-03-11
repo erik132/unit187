@@ -5,6 +5,7 @@
 	<title>Unit 187</title>
 	<link rel="stylesheet" type="text/css" href="/css/dependency/bulma.css">
 	<script src="js/dependency/vue.js"></script>
+	<script type="text/javascript" src="js/constants.js"></script>
 	<script type="text/javascript" src="js/mechanics.js"></script>
 	
 </head>
@@ -14,11 +15,35 @@
 		<storypoints>
 			<storypoint pointnr='0'>
 				<p>You wake up in a dark room.</p>
-				<p>Your action points {{player.ap}}</p>
+				<p>You feel tired and beaten</p>
 				<button type="button" onclick="endTurn()">next turn</button>
 			</storypoint>
 			<storypoint pointnr='1'>
-				<p>storypoint 12</p>
+				<p>It feels like a millenia has passed.</p>
+				<p>However you do not detect anything utterly wrong with your body.</p>
+				<button type="button" onclick="endTurn()">next turn</button>
+			</storypoint>
+			<storypoint pointnr='2'>
+				<p>You look around the room.</p>
+				<p>You feel that you can take action.</p>
+				<p>Action Points: {{player.ap}}</p>
+				<button type="button" onclick="endTurn()">next turn</button>
+			</storypoint>
+			<storypoint pointnr='3'>
+				<p>You notice a furnace and some wood.</p>
+				<p>Perhaps you could pick up the wood and use it to light the furnace.</p>
+				<p>Action Points: {{player.ap}}</p>
+
+				<div v-show="quests.blazeOfFire.completed == false">
+					<button type="button" v-show="player.weight == 0" onclick="player.addItem('wood')">Pick up wood</button>
+					<button type="button" v-show="player.weight > 0" onclick="quests.blazeOfFire.complete()">Light the furnace</button>
+				</div>
+				<div v-show="quests.blazeOfFire.completed == true">
+					<p>The furnace roars into action</p>
+				</div>
+
+				<button type="button" onclick="endTurn()">next turn</button>
+				<p>{{player.error}}<p>
 			</storypoint>
 		</storypoints>
 	
@@ -26,6 +51,7 @@
 	</div>
 	</div>
 	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/story.js"></script>
 	<script type="text/javascript" src="js/engine.js"></script>
 </body>
 </html>

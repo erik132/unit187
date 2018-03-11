@@ -4,16 +4,47 @@ var player = new Vue({
 	el: '#player',
 	data: {
 		ap: 0, //action points
-		apRegen: 1
-
+		apRegen: 1,
+		turn: 0,
+		weight: 0,
+		inventory: {
+			wood: 0
+		},
+		error: ""
 	},
 	methods: {
 		endTurn(){
+			this.error = "";
 			this.ap = this.apRegen;
+			this.turn++;
+		},
+		addItem(item){
+			if(this.ap > 0){
+				this.inventory[item]++;
+				this.weight += items[item].weight;
+				this.ap--;
+			}else{
+				this.error = "You do not have enough action points.";
+			}
+		},
+		removeItem(item){
+			if(this.ap > 0){
+				this.inventory[item]--;
+				this.weight -= items[item].weight;
+				this.ap--;
+			}else{
+				this.error = "You do not have enough action points.";
+			}
+		},
+		forceRemoveItem(item){
+			this.inventory[item]--;
+			this.weight -= items[item].weight;
+		},
+		setError(error){
+			this.error = error;
 		}
 	}
 });
-
 
 var centerView = new Vue({
 	el: "#centerView",
@@ -22,74 +53,6 @@ var centerView = new Vue({
 	}
 });
 
-var story = new Vue({
-	el: "#story",
-	data:{
-		currentPoint: 0
-	},
-	components: {
-		"storypoints": {
-			template: `
-				<div>
-					<slot></slot>
-				</div>
-			`,
-			props: {
 
-			},
-			data(){
-				return {
-					storyPoints: []
-				};
-			},
-			mounted(){
-				this.storyPoints = this.$children;
-				this.activateCurrent(0);
-				eventBus.$on('increaseStory', currentPoint =>{this.activateCurrent(currentPoint)});
-			},
-			/*events: {
-				increaseStoryPoint(currentPoint){
-					console.log("event point nr" + currentPoint);
-					this.activateCurrent(currentPoint);
-				}
-			},*/
-			methods: {
-				activateCurrent(currentPoint){
-					console.log("activating point nr " + currentPoint);
-					this.storyPoints.forEach(point =>{
-						point.isActive = (currentPoint == point.pointnr);
-					});
-				}
-			}
-
-		},
-		"storypoint": {
-			template: `
-				<div v-show='isActive'><slot></slot></div>
-			`,
-			props: {
-				pointnr: {required: true}
-			},
-
-			data(){
-				return { 
-					isActive: false
-				};
-			},
-
-			mounted(){
-				this.isActive = true;
-			}
-		}
-	},
-
-	methods: {
-		increaseStory(){
-			this.currentPoint++;
-			eventBus.$emit('increaseStory',this.currentPoint);
-			
-		}
-	}
-});
 
 
