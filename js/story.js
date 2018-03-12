@@ -13,15 +13,13 @@ var storypoint3 = function(){
 		story.increaseStory();
 	}
 }
-
-var storypoint4 = function(){
-	console.log("we at storypoint4");
-}
+var storypoint4 = alwaysIncreaseStory;
+var storypoint5 = alwaysIncreaseStory;
 
 var story = new Vue({
 	el: "#story",
 	data:{
-		currentPoint: -1,
+		currentPoint: 3,
 		storyFunction: storypoint0
 	},
 	components: {

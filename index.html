@@ -1,38 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
- 	<meta charset="UTF-8"> 
+ 	<meta charset="UTF-8">
+ 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Unit 187</title>
-	<link rel="stylesheet" type="text/css" href="/css/dependency/bulma.css">
+	<link rel="stylesheet" type="text/css" href="/home/enrico/type187/css/dependency/bulma-0.6.2/css/bulma.css">
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 	<script src="js/dependency/vue.js"></script>
 	<script type="text/javascript" src="js/constants.js"></script>
 	<script type="text/javascript" src="js/mechanics.js"></script>
 	
 </head>
 <body>
+	<section class="section">
 	<div class="container">
 	<div id="story">
 		<storypoints>
 			<storypoint pointnr='0'>
 				<p>You wake up in a dark room.</p>
 				<p>You feel tired and beaten</p>
-				<button type="button" onclick="endTurn()">next turn</button>
+				
 			</storypoint>
 			<storypoint pointnr='1'>
 				<p>It feels like a millenia has passed.</p>
 				<p>However you do not detect anything utterly wrong with your body.</p>
-				<button type="button" onclick="endTurn()">next turn</button>
+				
 			</storypoint>
 			<storypoint pointnr='2'>
+				<statbars>
+					<statbar name="action points" :start="player.ap" :end="player.apRegen"></statbar>
+				</statbars>
 				<p>You look around the room.</p>
 				<p>You feel that you can take action.</p>
-				<p>Action Points: {{player.ap}}</p>
-				<button type="button" onclick="endTurn()">next turn</button>
+				
+				
 			</storypoint>
 			<storypoint pointnr='3'>
+				<statbars>
+					<statbar name="action points" :start="player.ap" :end="player.apRegen"></statbar>
+				</statbars>
 				<p>You notice a furnace and some wood.</p>
 				<p>Perhaps you could pick up the wood and use it to light the furnace.</p>
-				<p>Action Points: {{player.ap}}</p>
 
 				<div v-show="quests.blazeOfFire.completed == false">
 					<button type="button" v-show="player.weight == 0" onclick="player.addItem('wood')">Pick up wood</button>
@@ -42,14 +50,33 @@
 					<p>The furnace roars into action</p>
 				</div>
 
-				<button type="button" onclick="endTurn()">next turn</button>
-				<p>{{player.error}}<p>
+				<p>{{player.error}}</p>
+			</storypoint>
+			<storypoint pointnr='4'>
+				<statbars>
+					<statbar name="action points" :start="player.ap" :end="player.apRegen"></statbar>
+					<statbar name="integrity" :start="player.integrity" :end="player.maxIntegrity"></statbar>
+				</statbars>
+				
+				<p>You look at your body in the light of the fire.</p>
+				<p>Time has taken its toll, but you are functional.</p>
+				
+			</storypoint>
+			<storypoint pointnr='5'>
+				<statbars>
+					<statbar name="action points" :start="player.ap" :end="player.apRegen"></statbar>
+					<statbar name="integrity" :start="player.integrity" :end="player.maxIntegrity"></statbar>
+					<statbar name="battery" :start="player.battery" :end="player.maxBattery"></statbar>
+				</statbars>
+				<p>However your battery is a different concern.</p>
+				<p>It's nearly empty.</p>
+				<button type="button" onclick="player.increaseBattery()">Increase battery</button>
 			</storypoint>
 		</storypoints>
-	
-
+		<button type="button" class="button is-primary" onclick="endTurn()">next turn</button>
 	</div>
 	</div>
+	</section>
 	<script type="text/javascript" src="js/main.js"></script>
 	<script type="text/javascript" src="js/story.js"></script>
 	<script type="text/javascript" src="js/engine.js"></script>
