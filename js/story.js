@@ -22,16 +22,17 @@ var storypoint6 = function(){
 	quests.poweringUp.complete();
 	if(quests.poweringUp.completed == true){
 		story.increaseStory();
+		mechanics.batteryDepletion = true;
 	}
 };
 var storypoint7 = function(){
-	
+
 }
 
 var story = new Vue({
 	el: "#story",
 	data:{
-		currentPoint: 5,
+		currentPoint: -1,
 		storyFunction: storypoint0
 	},
 	components: {
@@ -51,15 +52,8 @@ var story = new Vue({
 			},
 			mounted(){
 				this.storyPoints = this.$children;
-				//this.activateCurrent(0);
 				eventBus.$on('increaseStory', currentPoint =>{this.activateCurrent(currentPoint)});
 			},
-			/*events: {
-				increaseStoryPoint(currentPoint){
-					console.log("event point nr" + currentPoint);
-					this.activateCurrent(currentPoint);
-				}
-			},*/
 			methods: {
 				activateCurrent(currentPoint){
 					console.log("activating point nr " + currentPoint);

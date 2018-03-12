@@ -63,33 +63,21 @@
 				
 			</storypoint>
 			<storypoint pointnr='5'>
-				<statbars>
-					<statbar name="action points" :start="player.ap" :end="player.apRegen"></statbar>
-					<statbar name="integrity" :start="player.integrity" :end="player.maxIntegrity"></statbar>
-					<statbar name="battery" :start="player.battery" :end="player.maxBattery"></statbar>
-				</statbars>
+				<tristatbar></tristatbar>
 				<p>However your battery is a different concern.</p>
 				<p>It's nearly empty.</p>
 			</storypoint>
 		
 			<storypoint pointnr='6'>
-				<statbars>
-					<statbar name="action points" :start="player.ap" :end="player.apRegen"></statbar>
-					<statbar name="integrity" :start="player.integrity" :end="player.maxIntegrity"></statbar>
-					<statbar name="battery" :start="player.battery" :end="player.maxBattery"></statbar>
-				</statbars>
+				<tristatbar></tristatbar>
 				<p>There is a recharge station next to the furnace.</p>
 				<p>It seems it is still active. Quick! Use it!.</p>
 				<button type="button" onclick="playerRechargeAtCurrentCity()">Increase battery</button>
 				<div v-show="player.error != ''" class="notification is-danger">{{player.error}}</div>
 			</storypoint>
 			<storypoint pointnr='7'>
-				<statbars>
-					<statbar name="action points" :start="player.ap" :end="player.apRegen"></statbar>
-					<statbar name="integrity" :start="player.integrity" :end="player.maxIntegrity"></statbar>
-					<statbar name="battery" :start="player.battery" :end="player.maxBattery"></statbar>
-				</statbars>
-				<p>The furnace requires more fuel.</p>
+				<tristatbar></tristatbar>
+				<p>The furnace has flamed out.</p>
 				<p>Feed more wood to keep it going</p>
 				
 				<div v-show="player.error != ''" class="notification is-danger">{{player.error}}</div>

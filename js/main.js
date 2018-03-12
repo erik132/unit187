@@ -19,10 +19,20 @@ var player = new Vue({
 		error: ""
 	},
 	methods: {
+		regenerateActionPoints(){
+			if(mechanics.batteryDepletion){
+				if(this.battery > (this.apRegen - this.ap)){
+					this.battery = this.apRegen - this.ap;
+					this.ap = this.apRegen;
+				}
+			}else{
+				this.ap = this.apRegen;
+			}
+		},
 		endTurn(){
 			this.error = "";
-			this.ap = this.apRegen;
 			this.turn++;
+			this.regenerateActionPoints();
 		},
 		addItem(item){
 			if(this.ap > 0){
@@ -75,6 +85,16 @@ var centerView = new Vue({
 	data: {
 
 	}
+});
+
+Vue.component("tristatbar",{
+	template: `
+		<statbars>
+			<statbar name="action points" :start="player.ap" :end="player.apRegen"></statbar>
+			<statbar name="integrity" :start="player.integrity" :end="player.maxIntegrity"></statbar>
+			<statbar name="battery" :start="player.battery" :end="player.maxBattery"></statbar>
+		</statbars>
+	`,
 });
 
 Vue.component("statbars",{
