@@ -4,7 +4,7 @@ var player = new Vue({
 	el: '#player',
 	data: {
 		ap: 1, //action points
-		apRegen: 1,
+		apRegen: 2,
 		turn: 0,
 		weight: 0,
 		inventory: {
@@ -14,6 +14,8 @@ var player = new Vue({
 		maxIntegrity: 100,
 		battery: 30,
 		maxBattery: 100,
+
+		city: 0,
 		error: ""
 	},
 	methods: {
@@ -51,10 +53,18 @@ var player = new Vue({
 		setError(error){
 			this.error = error;
 		},
-		increaseBattery(){
-			this.battery += 5;
+		increaseBattery(increase){
+			this.battery += increase;
 			if(this.battery > this.maxBattery){
 				this.battery = this.maxBattery;
+			}
+		},
+		reduceAp(decrease){
+			if(this.ap - decrease < 0){
+				return false;
+			}else{
+				this.ap -= decrease;
+				return true;
 			}
 		}
 	}

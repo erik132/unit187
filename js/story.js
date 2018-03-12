@@ -14,12 +14,24 @@ var storypoint3 = function(){
 	}
 }
 var storypoint4 = alwaysIncreaseStory;
-var storypoint5 = alwaysIncreaseStory;
+var storypoint5 = function(){
+	alwaysIncreaseStory();
+	quests.poweringUp.active = true;
+};
+var storypoint6 = function(){
+	quests.poweringUp.complete();
+	if(quests.poweringUp.completed == true){
+		story.increaseStory();
+	}
+};
+var storypoint7 = function(){
+	
+}
 
 var story = new Vue({
 	el: "#story",
 	data:{
-		currentPoint: 3,
+		currentPoint: 5,
 		storyFunction: storypoint0
 	},
 	components: {

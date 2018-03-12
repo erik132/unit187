@@ -1,1 +1,3 @@
-var isUI = false;
+var mechanics = {
+	batteryDepletion: false,
+}
